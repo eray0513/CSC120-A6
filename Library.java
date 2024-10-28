@@ -23,7 +23,7 @@ public class Library extends Building{
      * @param title of book
      */
     public void addTitle(String title){
-      this.collection.put(name, true);
+      this.collection.put(title, true);
     }
 
     /**
@@ -34,13 +34,9 @@ public class Library extends Building{
     public String removeTitle(String title){
       String result;
       if(this.containsTitle(title)){
-        if(this.collection.remove(title, true)){
-          result = title;
-          return result;
-        }else{
-          result = "This title is currently checked out of the library";
-          return result;
-        }
+        this.collection.remove(title, true);
+        result = title;
+        return result;
       } else{
         result = "The library does not contain this title";
         return result;
@@ -102,10 +98,17 @@ public class Library extends Building{
     }
 
     /**
-     * Prints the collection using the toString method
+     * Prints the collection by iterating over the hashtable
      */
     public void printCollection(){
-      this.collection.toString();
+      System.out.println("\nCollection: " +"\n");
+      for(String key : this.collection.keySet()){
+        String available = "Unavailable";
+        if(this.collection.get(key) == true){
+          available = "Available";
+        }
+        System.out.println(key + ": " + available);
+      }
     }
 
   
