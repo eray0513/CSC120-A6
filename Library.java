@@ -113,20 +113,32 @@ public class Library extends Building{
 
   
     public static void main(String[] args) {
-      Library myLibrary = new Library("Neilson", "1 Green St", 4);
+        // Create a library object
+        Library myLibrary = new Library("Neilson", "1 Green St", 4);
+        // Create book objects
         String book = "Percy Jackson by Rick Riordan";
         String book2 = "The Mysterious Benedict Society by Lisa Lisa";
         String book3 = "I Can't Think of Anything by Evelyn Ray";
         String book4 = "Free Will by Rvelyn Eay";
+
+        // Test add books to collection
         myLibrary.addTitle(book);
         myLibrary.addTitle(book2);
         myLibrary.addTitle(book3);
         myLibrary.addTitle(book4);
 
+        // Test removing books
         System.out.println(myLibrary.removeTitle(book));
         System.out.println(myLibrary.removeTitle(book));
         myLibrary.addTitle(book);
 
+        // Test checking out and returning books
+        myLibrary.checkOut(book);
+        myLibrary.checkOut(book);
+        myLibrary.returnBook(book);
+        myLibrary.checkOut(book);
+
+        // Test printing collection
         myLibrary.printCollection();
 
 

@@ -56,7 +56,10 @@ public class Cafe extends Building{
     }
     
     public static void main(String[] args) {
+        // Create a cafe object
         Cafe myCafe = new Cafe("MyCafe", "123 Sesame", 4, 200, 300, 250, 100);
+        
+        // Test sell coffee method and restock method within
         myCafe.sellCoffee(12, 3, 1);
         myCafe.sellCoffee(400, 1000, 10000);
     }
