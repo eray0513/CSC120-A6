@@ -20,23 +20,114 @@ public class Library extends Building{
 
     /**
      * Add a title to the collection and set it to available (true)
-     * @param title
+     * @param title of book
      */
     public void addTitle(String title){
       this.collection.put(name, true);
     }
 
+    /**
+     * Removes a title from the collection
+     * @param title of the book (key)
+     * @return String of book that was removed or error message
+     */
     public String removeTitle(String title){
-
+      String result;
+      if(this.containsTitle(title)){
+        if(this.collection.remove(title, true)){
+          result = title;
+          return result;
+        }else{
+          result = "This title is currently checked out of the library";
+          return result;
+        }
+      } else{
+        result = "The library does not contain this title";
+        return result;
+      }
     }
 
+    /**
+     * Allows books to be checked out if they are in the library and available
+     * @param title of book being checked out (key)
+     */
+    public void checkOut(String title){
+      if(this.containsTitle(title)){
+        if(this.isAvailable(title)){
+        this.collection.replace(title, false);
+        } else{
+          System.out.println("This title is not available at this time.");
+        }
+      } else{
+        System.out.println("This library does not contain this title");
+      }
+    }
+
+    /**
+     * Allows books to be returned to the library
+     * @param title of the book (key)
+     */
+    public void returnBook(String title){
+      if(this.containsTitle(title)){
+        this.collection.replace(title, true);
+      } else{
+        System.out.println("The library does not contain this title.");
+      }
+    }
+
+    /**
+     * Checks if the collection contains a title
+     * @param title of the book (key)
+     * @return T/F if the title is in the collection
+     */
     public boolean containsTitle(String title){
-      
+      if(this.collection.containsKey(title)){
+        return true;
+      } else{
+        return false;
+      }
+    }
+
+    /**
+     * Checks if a title is available
+     * @param title of the book (key)
+     * @return T/F if the book is available
+     */
+    public boolean isAvailable(String title){
+      boolean result = false;
+      if(this.collection.get(title)==true){
+        result = true;
+      }
+      return result;
+    }
+
+    /**
+     * Prints the collection using the toString method
+     */
+    public void printCollection(){
+      this.collection.toString();
     }
 
   
     public static void main(String[] args) {
-      new Library("Neilson", "1 Green St", 4);
+      Library myLibrary = new Library("Neilson", "1 Green St", 4);
+        String book = "Percy Jackson by Rick Riordan";
+        String book2 = "The Mysterious Benedict Society by Lisa Lisa";
+        String book3 = "I Can't Think of Anything by Evelyn Ray";
+        String book4 = "Free Will by Rvelyn Eay";
+        myLibrary.addTitle(book);
+        myLibrary.addTitle(book2);
+        myLibrary.addTitle(book3);
+        myLibrary.addTitle(book4);
+
+        System.out.println(myLibrary.removeTitle(book));
+        System.out.println(myLibrary.removeTitle(book));
+        myLibrary.addTitle(book);
+
+        myLibrary.printCollection();
+
+
+
     }
   
   }
