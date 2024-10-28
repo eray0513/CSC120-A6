@@ -1,10 +1,10 @@
 // import the ArrayList class
 import java.util.ArrayList;
 /* This is a stub for the House class */
-public class House extends Building{
+public class House extends Building {
 
   // Keeps track of the list of people who lives there
-  private ArrayList<String> residents;
+  private ArrayList < String > residents;
   // Indicates if the house has a dining room
   private boolean hasDiningRoom;
 
@@ -17,7 +17,7 @@ public class House extends Building{
    */
   public House(String name, String address, int nFloors, boolean dining) {
     super(name, address, nFloors);
-    this.residents = new ArrayList<String>();
+    this.residents = new ArrayList < String > ();
     this.hasDiningRoom = dining;
     System.out.println("You have built a house: 🏠");
   }
@@ -26,7 +26,7 @@ public class House extends Building{
    * Accessor for dining room boolean
    * @return T/F if there is a dining room
    */
-  public boolean hasDiningRoom(){
+  public boolean hasDiningRoom() {
     return this.hasDiningRoom;
   }
 
@@ -34,7 +34,7 @@ public class House extends Building{
    * Accessor for number of residents
    * @return size of residents array list
    */
-  public int nResidents(){
+  public int nResidents() {
     return this.residents.size();
   }
 
@@ -42,10 +42,10 @@ public class House extends Building{
    * Allows resident to move in if not already living there
    * @param name String object representing resident
    */
-  public void moveIn(String name){
-    if(this.isResident(name)){
+  public void moveIn(String name) {
+    if (this.isResident(name)) {
       System.out.println(name + " already lives here. Move in failed.");
-    }else{
+    } else {
       this.residents.add(name);
       System.out.println(name + " has successfully moved in.");
     }
@@ -56,11 +56,11 @@ public class House extends Building{
    * @param name String object of person moving in
    * @return the resident's name if they are moved in and a message if not
    */
-  public String moveOut(String name){
-    if(this.isResident(name)){
+  public String moveOut(String name) {
+    if (this.isResident(name)) {
       this.residents.remove(name);
       return name;
-    } else{
+    } else {
       String notAdded = name + " does not live here. Move out failed.";
       return notAdded;
     }
@@ -71,10 +71,10 @@ public class House extends Building{
    * @param name resident to be checked for
    * @return T/F if the person is a resident
    */
-  public boolean isResident(String name){
-    if(this.residents.contains(name)){
+  public boolean isResident(String name) {
+    if (this.residents.contains(name)) {
       return true;
-    } else{
+    } else {
       return false;
     }
   }
