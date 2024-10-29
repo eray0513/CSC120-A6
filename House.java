@@ -44,10 +44,9 @@ public class House extends Building {
    */
   public void moveIn(String name) {
     if (this.isResident(name)) {
-      System.out.println(name + " already lives here. Move in failed.");
+      throw new RuntimeException(name + " already lives here. Move in failed.");
     } else {
       this.residents.add(name);
-      System.out.println(name + " has successfully moved in.");
     }
   }
 
@@ -61,8 +60,7 @@ public class House extends Building {
       this.residents.remove(name);
       return name;
     } else {
-      String notAdded = name + " does not live here. Move out failed.";
-      return notAdded;
+      throw new RuntimeException(name + " does not live in this house. Move out failed.");
     }
   }
 
@@ -82,13 +80,22 @@ public class House extends Building {
   public static void main(String[] args) {
     // Creates and initializes a house object
     House myHouse = new House("MyHouse", "345 Bayview", 2, false);
-    // Creates a resident/String object
-    String Ev = "Evelyn";
+
     // Testing move in and move out methods
-    myHouse.moveIn(Ev);
-    myHouse.moveIn(Ev);
-    System.out.println(myHouse.moveOut(Ev));
-    System.out.println(myHouse.moveOut(Ev));
+    myHouse.moveIn("Evelyn");
+    try{
+      myHouse.moveIn("Evelyn");
+    } catch (Exception e){
+      System.out.println("Resident already lives here. Move in failed.");
+    }
+
+    System.out.println(myHouse.moveOut("Evelyn"));
+
+    try{
+      System.out.println(myHouse.moveOut("Evelyn"));
+    } catch (Exception e){
+      System.out.println("Resident does not live here. Move out failed.");
+    }
   }
 
 }
