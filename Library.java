@@ -38,8 +38,7 @@ public class Library extends Building {
       result = title;
       return result;
     } else {
-      result = "The library does not contain this title";
-      return result;
+      throw new RuntimeException("The library does not contain this title.");
     }
   }
 
@@ -52,10 +51,10 @@ public class Library extends Building {
       if (this.isAvailable(title)) {
         this.collection.replace(title, false);
       } else {
-        System.out.println("This title is not available at this time.");
+        throw new RuntimeException("This title is not available at this time.");
       }
     } else {
-      System.out.println("This library does not contain this title");
+      throw new RuntimeException("The library does not contain this title");
     }
   }
 
@@ -77,11 +76,7 @@ public class Library extends Building {
    * @return T/F if the title is in the collection
    */
   public boolean containsTitle(String title) {
-    if (this.collection.containsKey(title)) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.collection.containsKey(title);
   }
 
   /**
@@ -90,11 +85,11 @@ public class Library extends Building {
    * @return T/F if the book is available
    */
   public boolean isAvailable(String title) {
-    boolean result = false;
-    if (this.collection.get(title) == true) {
-      result = true;
+    if(this.containsTitle(title)){
+      return this.collection.get(title);
+    } else{
+      return false;
     }
-    return result;
   }
 
   /**
@@ -114,28 +109,41 @@ public class Library extends Building {
   public static void main(String[] args) {
     // Create a library object
     Library myLibrary = new Library("Neilson", "1 Green St", 4);
-    // Create book objects
-    String book = "Percy Jackson by Rick Riordan";
-    String book2 = "The Mysterious Benedict Society by Lisa Lisa";
-    String book3 = "I Can't Think of Anything by Evelyn Ray";
-    String book4 = "Free Will by Rvelyn Eay";
+
+    // Can print empty collection
+    myLibrary.printCollection();
 
     // Test add books to collection
-    myLibrary.addTitle(book);
-    myLibrary.addTitle(book2);
-    myLibrary.addTitle(book3);
-    myLibrary.addTitle(book4);
+    myLibrary.addTitle("Percy Jackson by Rick Riordan");
+    myLibrary.addTitle("The Mysterious Benedict Society by Lisa Lisa");
+    myLibrary.addTitle("I Can't Think of Anything by Evelyn Ray");
+    myLibrary.addTitle("Free Will by Rvelyn Eay");
 
     // Test removing books
-    System.out.println(myLibrary.removeTitle(book));
-    System.out.println(myLibrary.removeTitle(book));
-    myLibrary.addTitle(book);
+    System.out.println(myLibrary.removeTitle("Percy Jackson by Rick Riordan"));
+    try{
+      System.out.println(myLibrary.removeTitle("Percy Jackson by Rick Riordan"));
+    }catch(Exception e){
+      System.out.println("The library does not contain this title.");
+    }
+    myLibrary.addTitle("Percy Jackson by Rick Riordan");
 
     // Test checking out and returning books
-    myLibrary.checkOut(book);
-    myLibrary.checkOut(book);
-    myLibrary.returnBook(book);
-    myLibrary.checkOut(book);
+    myLibrary.checkOut("Percy Jackson by Rick Riordan");
+    try{
+    myLibrary.checkOut("Percy Jackson by Rick Riordan");
+    } catch(Exception e){
+      System.out.println("This title is not available at this time.");
+    }
+
+    try{
+      myLibrary.checkOut("I'm not real by no one");
+    } catch(Exception e){
+      System.out.println("The library does not contain this title.");
+    }
+
+    myLibrary.returnBook("Percy Jackson by Rick Riordan");
+    myLibrary.checkOut("Percy Jackson by Rick Riordan");
 
     // Test printing collection
     myLibrary.printCollection();
